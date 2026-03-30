@@ -43,4 +43,4 @@ CREATE TABLE users (
 
 -- Insertion du compte admin par défaut
 INSERT INTO users (username, password, email, role) 
-VALUES ('admin', 'admin123', 'admin@exemple.com', 'admin');
+VALUES ('admin', '$2y$10$g0T9W6WpVx6xKk0DADvpZecyuMpDRjc2DPwL7//3IAZfVjRJ0PgfK', 'admin@exemple.com', 'admin');

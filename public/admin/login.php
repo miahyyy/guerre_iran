@@ -8,11 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    // Vérification des identifiants (à adapter selon votre système)
-    if ($username === 'admin' && $password === 'password') {
-        session_start();
+    // Authentification via la base de données
+    $db = new Database();
+    $user = $db->authenticateUser($username, $password);
+    
+    if ($user) {
         $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_username'] = $username;
+        $_SESSION['admin_username'] = $user['username'];
+        $_SESSION['admin_id'] = $user['id'];
         header('Location: ../admin/dashboard');
         exit();
     } else {

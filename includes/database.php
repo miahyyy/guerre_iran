@@ -89,5 +89,17 @@ class Database {
         $stmt = $this->pdo->query("SELECT * FROM categories ORDER BY nom");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    // Authentification
+    public function authenticateUser($username, $password) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND role = 'admin'");
+        $stmt->execute([':username' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user && password_verify($password, $user['password'])) {
+            return $user;
+        }
+        return false;
+    }
 }
 ?>
