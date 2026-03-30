@@ -5,11 +5,6 @@ RewriteEngine On
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-# Suppression de l'extension .php
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php [L]
-
 # URL rewriting pour les articles
 # Exemple: /article/titre-de-l-article -> article.php?slug=titre-de-l-article
 RewriteRule ^article/([a-z0-9-]+)$ article.php?slug=$1 [L,QSA]
@@ -18,12 +13,10 @@ RewriteRule ^article/([a-z0-9-]+)$ article.php?slug=$1 [L,QSA]
 # Exemple: /categorie/actualites -> categorie.php?slug=actualites
 RewriteRule ^categorie/([a-z0-9-]+)$ categorie.php?slug=$1 [L,QSA]
 
-# URL rewriting pour les pages d'administration
-RewriteRule ^admin/login$ admin/login.php [L]
-RewriteRule ^admin/dashboard$ admin/dashboard.php [L]
-RewriteRule ^admin/articles$ admin/articles/liste.php [L]
-RewriteRule ^admin/articles/ajouter$ admin/articles/ajouter.php [L]
-RewriteRule ^admin/articles/modifier/([0-9]+)$ admin/articles/modifier.php?id=$1 [L]
+# Suppression de l'extension .php (pour les autres fichiers)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
 
 # Gestion des erreurs 404
 ErrorDocument 404 /404.php

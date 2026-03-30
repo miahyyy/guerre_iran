@@ -1,0 +1,55 @@
+services:
+  # Front Office (FO) - Public website
+  web-fo:
+    image: php:8.3-apache
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-FO
+    ports:
+      - "8090:80"
+    volumes:
+      - ./front:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+    networks:
+      - app-network
+
+  # Back Office (BO) - Admin interface
+  web-bo:
+    image: php:8.3-apache
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-BO
+    ports:
+      - "8091:80"
+    volumes:
+      - ./admin:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+    networks:
+      - app-network
+
+  # Shared Database
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: guerre_iran
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+
+networks:
+  app-network:
+    driver: bridge

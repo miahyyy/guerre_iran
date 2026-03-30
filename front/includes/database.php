@@ -19,7 +19,7 @@ class Database {
         return $this->pdo;
     }
     
-    // Méthodes CRUD pour les articles
+    // Méthodes CRUD pour les articles (FO - lecture seule)
     public function getArticles($limit = null, $offset = 0, $status = 'published') {
         $sql = "SELECT a.*, c.nom as categorie_nom, c.slug as categorie_slug 
                 FROM articles a 
@@ -88,18 +88,6 @@ class Database {
     public function getCategories() {
         $stmt = $this->pdo->query("SELECT * FROM categories ORDER BY nom");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    // Authentification
-    public function authenticateUser($username, $password) {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND role = 'admin'");
-        $stmt->execute([':username' => $username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
-        }
-        return false;
     }
 }
 ?>

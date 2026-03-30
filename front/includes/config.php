@@ -1,8 +1,8 @@
 <?php
-// Configuration du site
+// Configuration du site - Front Office
 define('SITE_NAME', 'Guerre en Iran - Actualités');
 define('SITE_URL', 'http://localhost:8090');
-define('ADMIN_URL', SITE_URL . '/admin');
+define('ADMIN_URL', 'http://localhost:8091');
 
 // Configuration base de données
 define('DB_HOST', 'mysql');

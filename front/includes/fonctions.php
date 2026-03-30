@@ -1,5 +1,5 @@
 <?php
-// Fonctions utilitaires pour le SEO et le formatage
+// Fonctions utilitaires pour le SEO et le formatage - Front Office
 
 /**
  * Génère un slug SEO-friendly à partir d'une chaîne
@@ -50,13 +50,6 @@ function generateMetaTags($title, $description, $keywords = '', $image = '') {
     }
     
     return $html;
-}
-
-/**
- * Vérifie si l'utilisateur est connecté
- */
-function isLoggedIn() {
-    return isset($_SESSION['user_id']);
 }
 
 /**

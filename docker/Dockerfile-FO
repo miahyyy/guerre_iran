@@ -9,5 +9,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN a2enmod rewrite
 
-COPY . /var/www/html/
-COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+# Copy front files for FO
+COPY front/ /var/www/html/
+
+# FO specific Apache config
+COPY docker/vhost-fo.conf /etc/apache2/sites-available/000-default.conf
+
+RUN chown -R www-data:www-data /var/www/html

@@ -1,7 +1,7 @@
 <?php
-require_once '../includes/config.php';
-require_once '../includes/database.php';
-require_once '../includes/fonctions.php';
+require_once 'includes/config.php';
+require_once 'includes/database.php';
+require_once 'includes/fonctions.php';
 
 $slug = isset($_GET['slug']) ? cleanInput($_GET['slug']) : null;
 

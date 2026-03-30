@@ -1,10 +1,10 @@
 <?php
-require_once '../includes/config.php';
-require_once '../includes/database.php';
-require_once '../includes/fonctions.php';
+require_once 'includes/config.php';
+require_once 'includes/database.php';
+require_once 'includes/fonctions.php';
 
 if(isLoggedIn()) {
-    redirect('/admin/dashboard');
+    redirect('dashboard.php');
 }
 
 $error = '';
@@ -14,15 +14,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     
     $db = new Database();
-    $stmt = $db->getConnection()->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->execute([':username' => $username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $db->authenticateUser($username, $password);
     
-    if($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
-        redirect('/admin/dashboard');
+    if($user) {
+        $_SESSION['admin_logged_in'] = true;
+        $_SESSION['admin_id'] = $user['id'];
+        $_SESSION['admin_username'] = $user['username'];
+        $_SESSION['admin_role'] = $user['role'];
+        redirect('dashboard.php');
     } else {
         $error = 'Identifiants incorrects';
     }

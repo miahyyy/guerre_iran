@@ -6,19 +6,12 @@ RewriteEngine On
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
 # URL rewriting pour les pages d'administration (priorité)
-RewriteRule ^admin/login$ admin/login.php [L]
-RewriteRule ^admin/dashboard$ ../admin/dashboard.php [L]
-RewriteRule ^admin/articles$ ../admin/articles/liste.php [L]
-RewriteRule ^admin/articles/ajouter$ ../admin/articles/ajouter.php [L]
-RewriteRule ^admin/articles/modifier/([0-9]+)$ ../admin/articles/modifier.php?id=$1 [L]
+RewriteRule ^$ login.php [L]
+RewriteRule ^/dashboard$ dashboard.php [L]
+RewriteRule ^/articles$ articles/liste.php [L]
+RewriteRule ^/articles/ajouter$ articles/ajouter.php [L]
+RewriteRule ^/articles/modifier/([0-9]+)$ articles/modifier.php?id=$1 [L]
 
-# URL rewriting pour les articles
-# Exemple: /article/titre-de-l-article -> article.php?slug=titre-de-l-article
-RewriteRule ^article/([a-z0-9-]+)$ article.php?slug=$1 [L,QSA]
-
-# URL rewriting pour les catégories
-# Exemple: /categorie/actualites -> categorie.php?slug=actualites
-RewriteRule ^categorie/([a-z0-9-]+)$ categorie.php?slug=$1 [L,QSA]
 
 # Suppression de l'extension .php (pour les autres fichiers)
 RewriteCond %{REQUEST_FILENAME} !-d
