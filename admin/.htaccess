@@ -7,6 +7,7 @@ RewriteEngine On
 
 # URL rewriting pour les pages d'administration (priorité)
 RewriteRule ^$ login.php [L]
+RewriteRule ^/logout$ logout.php [L]
 RewriteRule ^/dashboard$ dashboard.php [L]
 RewriteRule ^/articles$ articles/liste.php [L]
 RewriteRule ^/articles/ajouter$ articles/ajouter.php [L]
